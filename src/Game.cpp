@@ -57,10 +57,13 @@ void Game::update()
     {
         newBiome = (Biome)randint(0, 2);
         lastBiomeChange = totalTime;
-        std::cout << "Changing biome!\n";
     }
-    world.update(dt.asSeconds(), newBiome, speed);
+    world.update(dt.asSeconds(), newBiome, speed, totalTime);
     player.update(dt.asSeconds(), totalTime);
+
+    speed = 275 + totalTime.asSeconds() * 8;
+    speed = speed > 750 ? 750 : speed;
+    std::cout << speed << "\n";
 
     frame++;
 }

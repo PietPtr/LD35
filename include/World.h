@@ -14,10 +14,18 @@ struct DrawData
     std::vector<sf::Texture>* textures;
 };
 
+enum Biome
+{
+    LAND,
+    WATER,
+    AIR
+};
+
 struct Obstacle
 {
     int lane;
     int index;
+    int size;
     float position;
 };
 
@@ -28,29 +36,23 @@ enum Role
     START,
 };
 
-enum Biome
-{
-    LAND,
-    WATER,
-    AIR
-};
-
 struct Background
 {
     float position;
     Biome biome;
-    Role role; //basically the texture index
+    Role role;
 };
-
 
 class World
 {
     public:
         World();
-        void update(double dt, Biome newBiome, double speed);
+        void update(double dt, Biome newBiome, double speed, Time totalTime);
         void draw(DrawData dd);
 
         Biome getBiome() { return biome; }
+        int randint(int low, int high, Time totalTime);
+        Obstacle getRandomObstacle(Time totalTime, float position);
     protected:
     private:
         std::vector<Obstacle> obstacles;

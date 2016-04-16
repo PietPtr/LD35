@@ -34,21 +34,11 @@ void Player::update(double dt, Time totalTime)
 
 void Player::draw(DrawData dd, Time totalTime, double speed)
 {
-
     Sprite player;
     player.setPosition(position);
-    if (!shiftShape)
-    {
-
-        int frameTime = 200;
-        int frame = (totalTime.asMilliseconds() / frameTime) % 3;
-        player.setTexture(dd.textures->at(1));
-        player.setTextureRect(IntRect((frame) * 120, (int)state * 120, 120, 120));
-    }
-    else
-    {
-        player.setTexture(dd.textures->at(2));
-        player.setTextureRect(IntRect(1 * 120, 0, 120, 120));
-    }
+    int frameTime = 200;
+    int frame = (totalTime.asMilliseconds() / frameTime) % 3;
+    player.setTexture(dd.textures->at(1));
+    player.setTextureRect(IntRect((frame) * 120, (int)state * 120, 120, 120));
     dd.window->draw(player);
 }
