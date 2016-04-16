@@ -12,6 +12,7 @@ void Game::initialize()
 {
     loadAudio(audioFileNames);
     loadTextures(textureFileNames);
+    std::cout << "Found " << textures.size() << " textures in vector.\n";
 
     drawData.textures = &textures;
     drawData.window = window;
@@ -36,12 +37,16 @@ void Game::update()
     dt = clock.restart();
     totalTime += dt;
 
+    world.update(dt.asSeconds());
+
     frame++;
 }
 
 void Game::draw()
 {
     window->clear();
+
+    world.draw(drawData);
 
     window->display();
 }
@@ -64,10 +69,12 @@ void Game::loadTextures(std::vector<std::string> textureFileNames)
 {
     for (int i = 0; i < textureFileNames.size(); i++)
     {
-        //textures.push_back()
         Texture texture;
-        if (!texture.loadFromFile("textures/" + textureFileNames.at(i)))
+        if (!texture.loadFromFile("resources/textures/" + textureFileNames.at(i)))
             window->close();
+        else
+            std::cout << "loaded resources/textures/" << textureFileNames.at(i) << "\n";
+        textures.push_back(texture);
     }
 }
 

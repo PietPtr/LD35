@@ -1,14 +1,11 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Audio.h"
+#include "include.h"
+#include "Player.h"
+#include "World.h"r
 
 using namespace sf;
-
-struct DrawData
-{
-    RenderWindow* window;
-    std::vector<Texture>* textures;
-};
 
 class Game
 {
@@ -34,10 +31,13 @@ class Game
         int frame = 0;
 
         std::vector<std::string> audioFileNames { };
-        std::vector<std::string> textureFileNames { };
+        std::vector<std::string> textureFileNames { "backgrounds.png" };
 
         std::vector<Audio*> sfx;
         std::vector<Texture> textures;
 
         DrawData drawData;
+
+        Player player;
+        World world;
 };

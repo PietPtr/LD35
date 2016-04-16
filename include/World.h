@@ -2,11 +2,17 @@
 #define WORLD_H
 #include <vector>
 #include <SFML/Graphics.hpp>
-#include "Game.h"
+//#include "include.h"
 
 using namespace sf;
 
-int BACKGROUNDHEIGHT = 120; //px
+const int BACKGROUNDHEIGHT = 120; //px
+
+struct DrawData
+{
+    sf::RenderWindow* window;
+    std::vector<sf::Texture>* textures;
+};
 
 struct Obstacle
 {
@@ -17,15 +23,15 @@ struct Obstacle
 
 enum Role
 {
-    START,
     END,
-    MIDDLE
+    MIDDLE,
+    START,
 };
 
 struct Background
 {
     float position;
-    int style; //style * 3 + role + startindex = texture index
+    int style;
     Role role; //basically the texture index
 };
 
@@ -39,7 +45,7 @@ class World
     private:
         std::vector<Obstacle> obstacles;
         int style = 0; //0: land, 1: air, 2: water
-        double speed;
+        double speed = 275; //px/s
         std::vector<Background> backgrounds;
 };
 
