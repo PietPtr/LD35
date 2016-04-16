@@ -59,11 +59,10 @@ void Game::update()
         lastBiomeChange = totalTime;
     }
     world.update(dt.asSeconds(), newBiome, speed, totalTime);
-    player.update(dt.asSeconds(), totalTime);
+    player.update(dt.asSeconds(), totalTime, world.getObstacles());
 
     speed = 275 + totalTime.asSeconds() * 8;
     speed = speed > 750 ? 750 : speed;
-    std::cout << speed << "\n";
 
     frame++;
 }

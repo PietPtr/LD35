@@ -8,7 +8,7 @@ Player::Player()
     //ctor
 }
 
-void Player::update(double dt, Time totalTime)
+void Player::update(double dt, Time totalTime, std::vector<Obstacle> obstacles)
 {
     const int HORIZONTAL_SPEED = 1200;
 
@@ -30,6 +30,22 @@ void Player::update(double dt, Time totalTime)
 
     wasRightpressed = false;
     wasLeftpressed = false;
+
+    if (totalTime.asMilliseconds() - timeHit > 1000)
+    {
+        timeHit = -1;
+        rotation = 0;
+    }
+
+    for (int i = 0; i < obstacles.size(); i++)
+    {
+        if ((lane == obstacles[i].lane || (obstacles[i].size == 2 && lane == obstacles[i].lane + 1) && timeHit == -1)
+            && obstacles[i].position > position.y && obstacles[i].position < position.y + 30)
+        {
+            timeHit = totalTime.asMilliseconds();
+
+        }
+    }
 }
 
 void Player::draw(DrawData dd, Time totalTime, double speed)
@@ -40,5 +56,6 @@ void Player::draw(DrawData dd, Time totalTime, double speed)
     int frame = (totalTime.asMilliseconds() / frameTime) % 3;
     player.setTexture(dd.textures->at(1));
     player.setTextureRect(IntRect((frame) * 120, (int)state * 120, 120, 120));
-    dd.window->draw(player);
+    if (timeHit == -1 || (timeHit != -1 && totalTime.asMilliseconds() / 150 % 2 == 0))
+        dd.window->draw(player);
 }

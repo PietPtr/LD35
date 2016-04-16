@@ -27,7 +27,6 @@ World::World()
 
 Obstacle World::getRandomObstacle(Time totalTime, float position)
 {
-    std::cout << "function got position: " << position << "\n";
     int indices[3] = { 0, 2, 3 };
 
     Obstacle obstacle;

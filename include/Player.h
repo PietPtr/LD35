@@ -15,8 +15,8 @@ class Player
 {
     public:
         Player();
-        void update(double dt, Time totalTime);
-        void draw(DrawData dd, Time totalTime, double speed);
+        void update(double dt, Time totalTime, std::vector<Obstacle> obstacles);
+        void draw(DrawData dd, Time totalTime, double speede);
 
         void pressedLeft(bool value) { wasLeftpressed = value; }
         void pressedRight(bool value) { wasRightpressed = value; }
@@ -25,6 +25,7 @@ class Player
     protected:
     private:
         Vector2f position { 240, 580 };
+        float rotation = 0;
         bool wasLeftpressed = false;
         bool wasRightpressed = false;
         int lane = 1; // 0: left, 1: center, 2: right
@@ -32,6 +33,7 @@ class Player
         State state = BEAR;
         Time lanechangeTime;
         bool shiftShape = false;
+        float timeHit = -1;
 };
 
 #endif // PLAYER_H

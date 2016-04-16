@@ -53,6 +53,7 @@ class World
         Biome getBiome() { return biome; }
         int randint(int low, int high, Time totalTime);
         Obstacle getRandomObstacle(Time totalTime, float position);
+        std::vector<Obstacle> getObstacles() { return obstacles; }
     protected:
     private:
         std::vector<Obstacle> obstacles;
