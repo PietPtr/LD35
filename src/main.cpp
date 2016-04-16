@@ -8,8 +8,8 @@ int main()
     srand(time(NULL));
 
     int windowWidth = 600;
-    int windowHeigth = 720;
-    RenderWindow window(VideoMode(windowWidth, windowHeigth), "Float");
+    int windowHeight = 720;
+    RenderWindow window(VideoMode(windowWidth, windowHeight), "Float");
     window.setVerticalSyncEnabled(true);
 
     Game game(&window);

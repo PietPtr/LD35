@@ -40,4 +40,6 @@ class Game
 
         Player player;
         World world;
+        Biome newBiome = LAND;
+        Time lastBiomeChange = totalTime;
 };

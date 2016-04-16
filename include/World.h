@@ -28,24 +28,34 @@ enum Role
     START,
 };
 
+enum Biome
+{
+    LAND,
+    WATER,
+    AIR
+};
+
 struct Background
 {
     float position;
-    int style;
+    Biome biome;
     Role role; //basically the texture index
 };
+
 
 class World
 {
     public:
         World();
-        void update(double dt);
+        void update(double dt, Biome newBiome);
         void draw(DrawData dd);
+
+        Biome getBiome() { return biome; }
     protected:
     private:
         std::vector<Obstacle> obstacles;
-        int style = 0; //0: land, 1: air, 2: water
-        double speed = 275; //px/s
+        Biome biome = LAND; // 0: land, 1: air, 2: water
+        double speed = 275; // px/s
         std::vector<Background> backgrounds;
 };
 

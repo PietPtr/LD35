@@ -9,7 +9,7 @@ World::World()
     Background startbg;
     startbg.position = 600;
     startbg.role = START;
-    startbg.style = style;
+    startbg.biome = biome;
     backgrounds.push_back(startbg);
 
     for (int i = 1; i < 8; i++)
@@ -17,12 +17,12 @@ World::World()
         Background bg;
         bg.position = 600 - i * BACKGROUNDHEIGHT;
         bg.role = MIDDLE;
-        bg.style = style;
+        bg.biome = biome;
         backgrounds.push_back(bg);
     }
 }
 
-void World::update(double dt)
+void World::update(double dt, Biome newBiome)
 {
     bool deleteFirst = false;
 
@@ -36,14 +36,29 @@ void World::update(double dt)
     if (deleteFirst)
     {
         backgrounds.erase(backgrounds.begin());
-        Background newbg; //maybe style change here?
+        Background newbg; //maybe biome change here?
         newbg.position = backgrounds[backgrounds.size() - 1].position - BACKGROUNDHEIGHT;
-        newbg.role = MIDDLE;
-        newbg.style =  backgrounds[backgrounds.size() - 1].style;
+        if (newBiome != biome)
+        {
+            if (backgrounds[backgrounds.size() - 1].role == END)
+            {
+                newbg.role = START;
+                newbg.biome = (Biome)newBiome;
+                biome = (Biome)newBiome;
+            }
+            else
+            {
+                newbg.role = END;
+                newbg.biome =  backgrounds[backgrounds.size() - 1].biome;
+            }
+        }
+        else
+        {
+            newbg.role = MIDDLE;
+            newbg.biome =  backgrounds[backgrounds.size() - 1].biome;
+        }
         backgrounds.push_back(newbg);
     }
-
-    std::cout << backgrounds.size() << "\n";
 }
 
 void World::draw(DrawData dd)
@@ -53,7 +68,7 @@ void World::draw(DrawData dd)
         Sprite background;
         background.setPosition(Vector2f(0, backgrounds[i].position));
         background.setTexture(dd.textures->at(0));
-        background.setTextureRect(IntRect(0, backgrounds[i].style * 360 + backgrounds[i].role * 120, 720, 120));
+        background.setTextureRect(IntRect(0, backgrounds[i].biome * 360 + backgrounds[i].role * 120, 720, 120));
         dd.window->draw(background);
     }
 }

@@ -31,13 +31,24 @@ void Game::update()
             {
                 window->close();
             }
+            if (event.key.code == Keyboard::A)
+                player.pressedLeft(true);
+            if (event.key.code == Keyboard::D)
+                player.pressedRight(true);
         }
     }
 
     dt = clock.restart();
     totalTime += dt;
 
-    world.update(dt.asSeconds());
+    if (randint(0, 1000) > 995 && totalTime.asSeconds() - lastBiomeChange.asSeconds() > 5)
+    {
+        newBiome = (Biome)randint(0, 2);
+        lastBiomeChange = totalTime;
+        std::cout << "Changing biome!\n";
+    }
+    world.update(dt.asSeconds(), newBiome);
+    player.update(dt.asSeconds());
 
     frame++;
 }
@@ -47,6 +58,7 @@ void Game::draw()
     window->clear();
 
     world.draw(drawData);
+    player.draw(drawData);
 
     window->display();
 }
