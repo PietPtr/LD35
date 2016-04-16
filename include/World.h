@@ -47,7 +47,7 @@ class World
 {
     public:
         World();
-        void update(double dt, Biome newBiome);
+        void update(double dt, Biome newBiome, double speed);
         void draw(DrawData dd);
 
         Biome getBiome() { return biome; }
@@ -55,7 +55,6 @@ class World
     private:
         std::vector<Obstacle> obstacles;
         Biome biome = LAND; // 0: land, 1: air, 2: water
-        double speed = 275; // px/s
         std::vector<Background> backgrounds;
 };
 

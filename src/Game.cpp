@@ -45,6 +45,7 @@ void Game::update()
                 intstate = intstate < 0 ? 2 : intstate;
                 intstate = intstate > 2 ? 0 : intstate;
                 player.setState((State)intstate);
+
             }
         }
     }
@@ -58,7 +59,7 @@ void Game::update()
         lastBiomeChange = totalTime;
         std::cout << "Changing biome!\n";
     }
-    world.update(dt.asSeconds(), newBiome);
+    world.update(dt.asSeconds(), newBiome, speed);
     player.update(dt.asSeconds(), totalTime);
 
     frame++;
@@ -69,7 +70,7 @@ void Game::draw()
     window->clear();
 
     world.draw(drawData);
-    player.draw(drawData);
+    player.draw(drawData, totalTime, speed);
 
     window->display();
 }

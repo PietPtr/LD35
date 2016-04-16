@@ -30,27 +30,25 @@ void Player::update(double dt, Time totalTime)
 
     wasRightpressed = false;
     wasLeftpressed = false;
-
 }
 
-void Player::draw(DrawData dd)
+void Player::draw(DrawData dd, Time totalTime, double speed)
 {
-    RectangleShape player;
+
+    Sprite player;
     player.setPosition(position);
-    switch((int)state)
+    if (!shiftShape)
     {
-    case(0):
-        player.setFillColor(Color(97, 65, 13));
-        break;
-    case(1):
-        player.setFillColor(Color(250, 225, 185));
-        break;
-    case(2):
-        player.setFillColor(Color(0, 36, 94));
-        break;
-    default:
-        player.setFillColor(Color(255, 0, 255));
+
+        int frameTime = 200;
+        int frame = (totalTime.asMilliseconds() / frameTime) % 3;
+        player.setTexture(dd.textures->at(1));
+        player.setTextureRect(IntRect((frame) * 120, (int)state * 120, 120, 120));
     }
-    player.setSize(Vector2f(120, 120));
+    else
+    {
+        player.setTexture(dd.textures->at(2));
+        player.setTextureRect(IntRect(1 * 120, 0, 120, 120));
+    }
     dd.window->draw(player);
 }

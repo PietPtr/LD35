@@ -22,7 +22,7 @@ World::World()
     }
 }
 
-void World::update(double dt, Biome newBiome)
+void World::update(double dt, Biome newBiome, double speed)
 {
     bool deleteFirst = false;
 

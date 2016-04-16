@@ -31,7 +31,7 @@ class Game
         int frame = 0;
 
         std::vector<std::string> audioFileNames { };
-        std::vector<std::string> textureFileNames { "backgrounds.png", "player.png" };
+        std::vector<std::string> textureFileNames { "backgrounds.png", "player.png", "shift.png" };
 
         std::vector<Audio*> sfx;
         std::vector<Texture> textures;
@@ -42,4 +42,5 @@ class Game
         World world;
         Biome newBiome = LAND;
         Time lastBiomeChange = totalTime;
+        double speed = 275; // px/s
 };
