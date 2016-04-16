@@ -8,21 +8,29 @@ Player::Player()
     //ctor
 }
 
-void Player::update(double dt)
+void Player::update(double dt, Time totalTime)
 {
     const int HORIZONTAL_SPEED = 1200;
 
     if (wasLeftpressed)
+    {
         lane--;
+        lanechangeTime = totalTime;
+    }
     if (wasRightpressed)
+    {
         lane++;
+        lanechangeTime = totalTime;
+    }
 
     lane = lane > 2 ? 2 : lane;
     lane = lane < 0 ? 0 : lane;
 
-    position.x = (lane + 1) * 120;
+    position.x = (lane+1) * 120;
 
-    std::cout << lane << " " << (int)(ceil(position.x)) << " " << (int)(ceil(goalx)) << "\n";
+    wasRightpressed = false;
+    wasLeftpressed = false;
+
 }
 
 void Player::draw(DrawData dd)

@@ -35,6 +35,17 @@ void Game::update()
                 player.pressedLeft(true);
             if (event.key.code == Keyboard::D)
                 player.pressedRight(true);
+            if (event.key.code == Keyboard::Q || event.key.code == Keyboard::E)
+            {
+                int intstate = (int)player.getState();
+                if (event.key.code == Keyboard::Q)
+                    intstate--;
+                else
+                    intstate++;
+                intstate = intstate < 0 ? 2 : intstate;
+                intstate = intstate > 2 ? 0 : intstate;
+                player.setState((State)intstate);
+            }
         }
     }
 
@@ -48,7 +59,7 @@ void Game::update()
         std::cout << "Changing biome!\n";
     }
     world.update(dt.asSeconds(), newBiome);
-    player.update(dt.asSeconds());
+    player.update(dt.asSeconds(), totalTime);
 
     frame++;
 }

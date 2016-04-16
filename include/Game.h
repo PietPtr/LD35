@@ -31,7 +31,7 @@ class Game
         int frame = 0;
 
         std::vector<std::string> audioFileNames { };
-        std::vector<std::string> textureFileNames { "backgrounds.png" };
+        std::vector<std::string> textureFileNames { "backgrounds.png", "player.png" };
 
         std::vector<Audio*> sfx;
         std::vector<Texture> textures;
