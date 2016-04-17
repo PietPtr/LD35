@@ -36,7 +36,8 @@ class Game
         Clock clock;
         int frame = 0;
 
-        std::vector<std::string> audioFileNames { };
+        std::vector<std::string> audioFileNames { "resources/sound/theme.wav",
+                                                  "resources/sound/game-over.wav" };
         std::vector<std::string> textureFileNames { "backgrounds.png", "player.png",
                                            "shift.png", "obstacles.png", "life.png",
                                            "game-over.png", "numbers.png" };
@@ -54,5 +55,6 @@ class Game
         Gamestate gamestate = PLAYING;
         double pxdistance = 0;
         int score;
+        Sound theme;
 
 };

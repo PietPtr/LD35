@@ -21,6 +21,10 @@ class Audio
         {
             sound.stop();
         }
+        void setLoop(bool loop)
+        {
+            sound.setLoop(loop);
+        }
     protected:
     private:
         SoundBuffer buffer;

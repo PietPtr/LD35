@@ -71,7 +71,7 @@ void Player::draw(DrawData dd, Time totalTime, double speed)
 {
     Sprite player;
     player.setPosition(position + Vector2f(60, 60));
-    int frameTime = 200;
+    int frameTime = 100;
     int frame = (totalTime.asMilliseconds() / frameTime) % 4;
     player.setTexture(dd.textures->at(1));
     player.setTextureRect(IntRect((frame) * 120, (int)state * 120, 120, 120));

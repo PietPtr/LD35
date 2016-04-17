@@ -16,6 +16,9 @@ void Game::initialize()
 
     drawData.textures = &textures;
     drawData.window = window;
+
+    sfx[0]->play();
+    sfx[0]->setLoop(true);
 }
 
 void Game::update()
@@ -69,11 +72,16 @@ void Game::update()
         speed = speed > 750 ? 750 : speed;
 
         if (player.getLives() == 0)
+        {
             gamestate = GAME_OVER;
+            sfx[1]->play();
+        }
+
         pxdistance += speed * dt.asSeconds();
     }
     else if (gamestate == GAME_OVER)
     {
+        sfx[0]->stop();
         score = (int)(pxdistance / 120);
     }
 
