@@ -53,16 +53,29 @@ void Game::update()
     dt = clock.restart();
     totalTime += dt;
 
-    if (randint(0, 1000) > 995 && totalTime.asSeconds() - lastBiomeChange.asSeconds() > 5)
+    if (gamestate == PLAYING)
     {
-        newBiome = (Biome)randint(0, 2);
-        lastBiomeChange = totalTime;
-    }
-    world.update(dt.asSeconds(), newBiome, speed, totalTime);
-    player.update(dt.asSeconds(), totalTime, world.getObstacles());
+        if (randint(0, 1000) > 995 && totalTime.asSeconds() - lastBiomeChange.asSeconds() > 5)
+        {
+            newBiome = (Biome)randint(0, 2);
+            lastBiomeChange = totalTime;
+        }
+        player.setBiome(world.getPlayerBiome());
 
-    speed = 275 + totalTime.asSeconds() * 8;
-    speed = speed > 750 ? 750 : speed;
+        world.update(dt.asSeconds(), newBiome, speed, totalTime);
+        player.update(dt.asSeconds(), totalTime, world.getObstacles());
+
+        speed = 275 + totalTime.asSeconds() * 8;
+        speed = speed > 750 ? 750 : speed;
+
+        if (player.getLives() == 0)
+            gamestate = GAME_OVER;
+        pxdistance += speed * dt.asSeconds();
+    }
+    else if (gamestate == GAME_OVER)
+    {
+        score = (int)(pxdistance / 120);
+    }
 
     frame++;
 }
@@ -73,6 +86,25 @@ void Game::draw()
 
     world.draw(drawData);
     player.draw(drawData, totalTime, speed);
+
+    if (gamestate == GAME_OVER)
+    {
+        Sprite gameover;
+        gameover.setTexture(textures.at(5));
+        gameover.setPosition(120, 240);
+        window->draw(gameover);
+
+        std::string scoreStr = std::to_string(score);
+        for (int i = 0; i < scoreStr.length(); i++)
+        {
+            Sprite number;
+            number.setPosition(Vector2f(i * 30, 0) + Vector2f(250, 305));
+            number.setTexture(textures.at(6));
+            number.setTextureRect(IntRect(((int)scoreStr[i] - 48) * 30, 0, 30, 30));
+            window->draw(number);
+            std::cout << ((int)scoreStr[i] - 48) * 30 << " " << scoreStr[i] << "\n";
+        }
+    }
 
     window->display();
 }

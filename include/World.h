@@ -51,6 +51,7 @@ class World
         void draw(DrawData dd);
 
         Biome getBiome() { return biome; }
+        Biome getPlayerBiome() { return backgrounds.front().biome; }
         int randint(int low, int high, Time totalTime);
         Obstacle getRandomObstacle(Time totalTime, float position);
         std::vector<Obstacle> getObstacles() { return obstacles; }

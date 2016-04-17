@@ -7,6 +7,12 @@
 
 using namespace sf;
 
+enum Gamestate
+{
+    PLAYING,
+    GAME_OVER
+};
+
 class Game
 {
     public:
@@ -31,7 +37,9 @@ class Game
         int frame = 0;
 
         std::vector<std::string> audioFileNames { };
-        std::vector<std::string> textureFileNames { "backgrounds.png", "player.png", "shift.png", "obstacles.png" };
+        std::vector<std::string> textureFileNames { "backgrounds.png", "player.png",
+                                           "shift.png", "obstacles.png", "life.png",
+                                           "game-over.png", "numbers.png" };
 
         std::vector<Audio*> sfx;
         std::vector<Texture> textures;
@@ -43,4 +51,8 @@ class Game
         Biome newBiome = LAND;
         Time lastBiomeChange = totalTime;
         double speed = 275; // px/s
+        Gamestate gamestate = PLAYING;
+        double pxdistance = 0;
+        int score;
+
 };
